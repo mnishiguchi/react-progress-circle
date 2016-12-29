@@ -1,19 +1,19 @@
-import React from 'react'
+import React      from 'react'
 import classNames from 'classnames'
 
 import './ProgressCircle.css'
 
-const ProgressCircle = () => {
-  const { rating } = this.props
+const ProgressCircle = (props) => {
+  const { rating } = props
 
   const progressClassName = classNames({
     'rating-progress js-rating-progress': true,
-    'under-30'                          : (rating <= .3),
-    'under-70'                          : (rating <= .7 && rating > .3),
+    'under-30'                          : (rating <= 30),
+    'under-70'                          : (rating <= 70 && rating > 30),
   })
 
   const progressStyle = {
-    strokeDashoffset: (1 - rating) * 100
+    strokeDashoffset: 100 - rating
   }
 
   return (
@@ -30,7 +30,7 @@ const ProgressCircle = () => {
         />
       </svg>
       <div className="ratingText">
-        {rating * 100}
+        {rating}
       </div>
     </div>
   )
