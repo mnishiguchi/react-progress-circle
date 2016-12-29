@@ -1,0 +1,48 @@
+body {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 300;
+}
+
+.ProgressCircle {
+	height: 125px;
+	width: 125px;
+	position: relative;
+}
+
+.ProgressCircle svg {
+	height: 125px;
+	transform: rotate(-90deg);
+	width: 125px;
+}
+
+.ProgressCircle svg .rating-progress-background {
+	fill: none;
+	stroke: #E9E9E7;
+	stroke-width: 1.8;
+}
+
+.ProgressCircle svg .rating-progress {
+	fill: none;
+	stroke: #78bec7;
+	stroke-dasharray: 100 100;
+	stroke-dashoffset: 100;
+	stroke-linecap: square;
+	stroke-width: 1.8;
+	transition: all 1.2s cubic-bezier(0.99, 0.01, 0.62, 0.94);
+}
+
+.ProgressCircle .ratingText {
+	position: absolute;
+	width: 125px;
+	color: red;
+	bottom: 20px;
+	text-align: center;
+}
+
+.under-30 {
+	stroke: #FF5D00 !important;
+}
+
+.under-70 {
+	stroke: #FFE100 !important;
+}
