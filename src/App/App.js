@@ -3,8 +3,7 @@ import { EventEmitter }     from 'fbemitter';
 
 import './App.css';
 
-import ProgressControl from '../ProgressControl/ProgressControl';
-import ProgressCircle  from '../ProgressCircle/ProgressCircle';
+import ScoreBoard from '../ScoreBoard/ScoreBoard';
 
 class App extends Component {
   constructor(props) {
@@ -12,9 +11,9 @@ class App extends Component {
 
     this.state = {
       scores: {
-        bicycle : 30,
         walk    : 50,
-        transit   : 80,
+        transit : 80,
+        bicycle : 30,
       }
     }
   }
@@ -27,17 +26,11 @@ class App extends Component {
             React Progress Circle component
           </h2>
         </div>
-
-        <div className="row">
-          <div className="col-sm-4">
-            {this._renderWalkScore()}
-          </div>
-          <div className="col-sm-4">
-            {this._renderTransitScore()}
-          </div>
-          <div className="col-sm-4">
-            {this._renderBicycleScore()}
-          </div>
+        <div style={{maxWidth: '600px', margin: '0 auto'}}>
+          <ScoreBoard
+            scores={this.state.scores}
+            emitter={this._emitter}
+          />
         </div>
       </div>
     );
@@ -50,11 +43,11 @@ class App extends Component {
 
 
   componentWillMount() {
-    this._listenForChildren()
+    this._subscribeEvents()
   }
 
   componentWillUnmount() {
-    this._unlistenForChildren()
+    this._unsubscribeEvents()
   }
 
 
@@ -63,73 +56,10 @@ class App extends Component {
   // ---
 
 
-  _renderBicycleScore() {
-    return (
-      <div style={{ margin: '1.5rem 0' }}>
-        <ProgressCircle
-          label="Bicycle"
-          score={this.state.scores.bicycle}
-        >
-          <i className="fa fa-bicycle"></i>
-        </ProgressCircle>
-
-        <br />
-
-        <ProgressControl
-          type={'bicycle'}
-          score={this.state.scores.bicycle}
-          emitter={this._emitter}
-        />
-      </div>
-    )
-  }
-
-  _renderWalkScore() {
-    return (
-      <div style={{ margin: '1.5rem 0' }}>
-        <ProgressCircle
-          label="Walk"
-          score={this.state.scores.walk}
-        >
-          <i className="fa fa-blind"></i>
-        </ProgressCircle>
-
-        <br />
-
-        <ProgressControl
-          type={'walk'}
-          score={this.state.scores.walk}
-          emitter={this._emitter}
-        />
-      </div>
-    )
-  }
-
-  _renderTransitScore() {
-    return (
-      <div style={{ margin: '1.5rem 0' }}>
-        <ProgressCircle
-          label="Transit"
-          score={this.state.scores.transit}
-        >
-          <i className="fa fa-bus"></i>
-        </ProgressCircle>
-
-        <br />
-
-        <ProgressControl
-          type={'transit'}
-          score={this.state.scores.transit}
-          emitter={this._emitter}
-        />
-      </div>
-    )
-  }
-
   /**
    * Sets up an emitter and listens for events from children.
    */
-  _listenForChildren() {
+  _subscribeEvents() {
     this._emitter = new EventEmitter()
 
     this._emitter.addListener('PROGRESS_CONTROL_SCORE_CHANGED', ({ score, type }) => {
@@ -141,7 +71,7 @@ class App extends Component {
   /**
    * Removes all the listeners that are registered on the emitter.
    */
-  _unlistenForChildren() {
+  _unsubscribeEvents() {
     this._emitter.removeAllListeners()
   }
 }
