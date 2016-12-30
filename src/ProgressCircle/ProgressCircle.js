@@ -7,9 +7,9 @@ const ProgressCircle = (props) => {
   const { rating } = props
 
   const progressClassName = classNames({
-    'rating-progress js-rating-progress': true,
-    'under-30'                          : (rating <= 30),
-    'under-70'                          : (rating <= 70 && rating > 30),
+    'rating-progress' : true,
+    'under-30'        : (rating <= 30),
+    'under-70'        : (rating <= 70 && rating > 30),
   })
 
   const progressStyle = {
