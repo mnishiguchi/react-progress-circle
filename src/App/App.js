@@ -13,8 +13,8 @@ class App extends Component {
     this.state = {
       scores: {
         bicycle : 30,
-        walk : 50,
-        drive: 80,
+        walk    : 50,
+        transit   : 80,
       }
     }
   }
@@ -28,20 +28,16 @@ class App extends Component {
           </h2>
         </div>
 
-        <div style={{ margin: '1.5rem 0' }}>
-          <ProgressCircle
-            label="Bicycle"
-            score={this.state.scores.bicycle}
-          >
-            <i className="fa fa-bicycle"></i>
-          </ProgressCircle>
-
-          <hr />
-
-          <ProgressControl
-            score={this.state.scores.bicycle}
-            emitter={this._emitter}
-          />
+        <div className="row">
+          <div className="col-sm-4">
+            {this._renderWalkScore()}
+          </div>
+          <div className="col-sm-4">
+            {this._renderTransitScore()}
+          </div>
+          <div className="col-sm-4">
+            {this._renderBicycleScore()}
+          </div>
         </div>
       </div>
     );
@@ -67,14 +63,77 @@ class App extends Component {
   // ---
 
 
+  _renderBicycleScore() {
+    return (
+      <div style={{ margin: '1.5rem 0' }}>
+        <ProgressCircle
+          label="Bicycle"
+          score={this.state.scores.bicycle}
+        >
+          <i className="fa fa-bicycle"></i>
+        </ProgressCircle>
+
+        <br />
+
+        <ProgressControl
+          type={'bicycle'}
+          score={this.state.scores.bicycle}
+          emitter={this._emitter}
+        />
+      </div>
+    )
+  }
+
+  _renderWalkScore() {
+    return (
+      <div style={{ margin: '1.5rem 0' }}>
+        <ProgressCircle
+          label="Walk"
+          score={this.state.scores.walk}
+        >
+          <i className="fa fa-blind"></i>
+        </ProgressCircle>
+
+        <br />
+
+        <ProgressControl
+          type={'walk'}
+          score={this.state.scores.walk}
+          emitter={this._emitter}
+        />
+      </div>
+    )
+  }
+
+  _renderTransitScore() {
+    return (
+      <div style={{ margin: '1.5rem 0' }}>
+        <ProgressCircle
+          label="Transit"
+          score={this.state.scores.transit}
+        >
+          <i className="fa fa-bus"></i>
+        </ProgressCircle>
+
+        <br />
+
+        <ProgressControl
+          type={'transit'}
+          score={this.state.scores.transit}
+          emitter={this._emitter}
+        />
+      </div>
+    )
+  }
+
   /**
    * Sets up an emitter and listens for events from children.
    */
   _listenForChildren() {
     this._emitter = new EventEmitter()
 
-    this._emitter.addListener('PROGRESS_CONTROL_RATING_CHANGED', ({ score }) => {
-      const scores = {...this.state.scores, bicycle: score}
+    this._emitter.addListener('PROGRESS_CONTROL_SCORE_CHANGED', ({ score, type }) => {
+      const scores = {...this.state.scores, [type]: score}
       this.setState({ scores })
     })
   }

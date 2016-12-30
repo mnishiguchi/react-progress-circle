@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProgressControl = ({ score, emitter }) => {
+const ProgressControl = ({ type, score, emitter }) => {
   let scoreInput
 
   return (
@@ -28,7 +28,7 @@ const ProgressControl = ({ score, emitter }) => {
   function handleRatingChange(newValue) {
     if (newValue < 0 || newValue > 100) return
 
-    emitter.emit('PROGRESS_CONTROL_RATING_CHANGED', { score: newValue })
+    emitter.emit('PROGRESS_CONTROL_SCORE_CHANGED', { score: newValue, type })
   }
 }
 
