@@ -14,7 +14,7 @@ class App extends Component {
       rating: 30
     }
   }
-  
+
   render() {
     return (
       <div className="App">
@@ -25,10 +25,12 @@ class App extends Component {
         </div>
 
         <div style={{ margin: '1.5rem 0' }}>
-          <ProgressCircle
-            rating={this.state.rating}
-          />
-          <br />
+          <ProgressCircle rating={this.state.rating}>
+            <i className="fa fa-bicycle"></i>
+          </ProgressCircle>
+
+          <hr />
+          
           <ProgressControl
             rating={this.state.rating}
             emitter={this._emitter}
