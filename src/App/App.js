@@ -11,7 +11,11 @@ class App extends Component {
     super(props)
 
     this.state = {
-      rating: 30
+      scores: {
+        bike: 30,
+        walk: 50,
+        drive: 80,
+      }
     }
   }
 
@@ -25,14 +29,17 @@ class App extends Component {
         </div>
 
         <div style={{ margin: '1.5rem 0' }}>
-          <ProgressCircle rating={this.state.rating}>
+          <ProgressCircle
+            label="Label"
+            score={this.state.scores.bike}
+          >
             <i className="fa fa-bicycle"></i>
           </ProgressCircle>
 
           <hr />
-          
+
           <ProgressControl
-            rating={this.state.rating}
+            score={this.state.scores.bike}
             emitter={this._emitter}
           />
         </div>
@@ -66,8 +73,9 @@ class App extends Component {
   _listenForChildren() {
     this._emitter = new EventEmitter()
 
-    this._emitter.addListener('PROGRESS_CONTROL_RATING_CHANGED', ({ rating }) => {
-      this.setState({rating})
+    this._emitter.addListener('PROGRESS_CONTROL_RATING_CHANGED', ({ score }) => {
+      const scores = {...this.state.scores, bike: score}
+      this.setState({ scores })
     })
   }
 

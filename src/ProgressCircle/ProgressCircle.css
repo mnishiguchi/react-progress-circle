@@ -42,19 +42,11 @@
   transition: all 1.2s cubic-bezier(0.99, 0.01, 0.62, 0.94);
 }
 
-.ProgressCircle svg .under-50 {
-  stroke: #FF5D00;
-}
+.ProgressCircle svg .under-50 { stroke: #FF5D00; }
+.ProgressCircle svg .under-75 { stroke: #FFE100; }
+.ProgressCircle svg .over-75  { stroke: #81CE97; }
 
-.ProgressCircle svg .under-75 {
-  stroke: #FFE100;
-}
-
-.ProgressCircle svg .over-75 {
-  stroke: #81CE97;
-}
-
-.ProgressCircle .titleText {
+.ProgressCircle .scoreText {
   position: absolute;
   width: 125px;
   color: black;
@@ -63,18 +55,19 @@
   text-align: center;
 }
 
-.ProgressCircle .titleText a {
+.ProgressCircle .labelText a {
   position: absolute;
   width: 125px;
   color: #727272;
   text-decoration: none;
+  left: 0;
   bottom: 40px;
   text-align: center;
   font-weight: light;
   font-size: 12px;
 }
 
-.ProgressCircle .titleText a:hover {
+.ProgressCircle .labelText a:hover {
   text-decoration: underline;
 }
 
